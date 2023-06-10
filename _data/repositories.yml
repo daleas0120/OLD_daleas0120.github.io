@@ -1,12 +1,8 @@
 github_users:
-  - torvalds
-  - alshedivat
+  - daleas0120
 
 github_repos:
-  - alshedivat/al-folio
-  - twbs/bootstrap
-  - jekyll/jekyll
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - jpswalsh/academicons
-  - mathjax/MathJax
+  - daleas0120/Metallurgy
+  - daleas0120/VAE
+  - GDS-Education-Community-of-Practice/DSECOP
+
