@@ -3,7 +3,7 @@ layout: page
 permalink: /repositories/
 title: repositories
 description: Links to some of my open source code projects
-nav: true
+nav: false
 nav_order: 
 ---
 

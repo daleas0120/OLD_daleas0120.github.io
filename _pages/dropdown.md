@@ -10,6 +10,10 @@ children:
     - title: divider
     - title: projects
       permalink: /projects/
+    - title: divider
     - title: repositories
       permalink: /repositories/
+    - title: divider
+    - title: teaching
+      permalink: /teaching/
 ---
