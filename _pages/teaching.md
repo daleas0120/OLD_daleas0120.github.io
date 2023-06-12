@@ -1,7 +1,7 @@
 ---
 layout: page
 permalink: /teaching/
-title: teaching statement
+title: teaching
 description: Teaching Philosophy Statement
 nav: true
 nav_order: 5
