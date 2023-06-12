@@ -1,12 +1,22 @@
 ---
 layout: page
 permalink: /teaching/
-title: teaching
-description: Materials for courses you taught. Replace this text with your description.
+title: teaching statement
+description: Teaching Philosophy Statement
 nav: true
 nav_order: 5
 ---
 
-For now, this page is assumed to be a static description of your courses. You can convert it to a collection similar to `_projects/` so that you can have a dedicated page for each course.
+From my experiences as both student and instructor, I am convinced that there is no one pedagogical approach guaranteed to succeed within the classroom due to the diversity of student backgrounds, perspectives, and learning styles.  Instead, my primary emphasis is on creating an inclusive and equitable learning environment supported by good communication practices.  I begin by setting high standards, explaining the learning objectives and evaluation methods at the beginning of each class session, then predicting to students specifically where their difficulties are to be expected.  This allows students who struggle to recognize their challenges quickly and reach out for help, enabling me to address learning issues early before the student falls behind.  Students who need to spend their time and energy elsewhere are confident in their ability to succeed in the course, reducing stress and frustration.  Students who enjoy challenging themselves know when they have accomplished their best work.  
 
-Organize your courses by years, topics, or universities, however you like!
+My early teaching experience was working with students who speak English as a second language, come from broad socioeconomic and ethnic backgrounds, and/or were differently abled due to autism, aphasia, or other learning challenges.  I quickly discovered that the fastest path to successful communication is to first form an interpersonal connection and then use this connection as the foundation for discussing the relevant course material.  By being my authentic self, students felt confident that I would see them as a person with a life beyond my classroom.  They trusted that I would meet them where they were at in terms of knowledge and ability, and that I would provide them with the tools, information, and support they needed to progress further in their goals.  For example, as a physics laboratory instructor, I always test the experiment for the week before the course meeting to check the equipment and make sure everything is in working order. I note places in the procedure that may be unclear with additional details, and I collect example data.  During the laboratory instructional period, I was honest with students about the parts I personally found challenging and explained how I overcame these challenges, I gave them the additional procedural details I had discovered, and I made it clear that I expected them to get results similar to mine.  By doing all of the assigned work myself, I was able to set high standards for my students and push them to achieve excellent results; however, I also provided them with additional support to compensate for difference between their skill level and mine.
+
+The study of the physical sciences requires many students to develop critical thinking skills in an absence of previous experience with quantitative analysis or in contradiction to a <a href="https://pubs.aip.org/aapt/ajp/article-abstract/64/10/1316/529119/More-than-misconceptions-Multiple-perspectives-on?redirectedFrom=fulltext">pre-existing flawed intuition</a>.  Students are presented with the opportunity to consciously explore how they personally approach unknown problems, correct their assumptions, and develop a deeper understanding of how to evaluate and accept evidence.  I recognize that many students are preparing for careers in STEM, specifically careers in the physical sciences, but that many more are preparing for careers in industry, education, medicine, and interdisciplinary roles.  Accordingly, the critical thinking, quantitative analysis, and technical communication skills needed for scientific reasoning are developed with an emphasis on transferring to their future careers.  Abstract concepts are developed in the context of daily life–and as much as possible related to the student’s personal experience–before they are applied to course content.  
+
+I approach every student-instructor interaction from a position of personal humility, actively recognizing my own privilege and respecting the students as individuals first.  However, as an instructor, my goals remain the same for every individual: to accomplish content mastery as a means to achieving their educational and life goals.  
+
+
+
+<!-- For now, this page is assumed to be a static description of your courses. You can convert it to a collection similar to `_projects/` so that you can have a dedicated page for each course.
+
+Organize your courses by years, topics, or universities, however you like! -->
