@@ -4,7 +4,7 @@ permalink: /repositories/
 title: repositories
 description: Links to some of my open source code projects
 nav: true
-nav_order: 3
+nav_order: 
 ---
 
 ## GitHub user daleas0120
