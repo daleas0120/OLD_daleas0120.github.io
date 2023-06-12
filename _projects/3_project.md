@@ -1,7 +1,7 @@
 ---
 layout: page
-title: project 3
-description: a project that redirects to another website
+title: 3D Simulations
+description: Metropolis-Hastings simulations of 3D Ising Heterostructures
 img: assets/gif/proj_3_3DMCIMS.gif
 importance: 3
 category: work
