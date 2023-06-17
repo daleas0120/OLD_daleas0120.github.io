@@ -1,6 +1,6 @@
 ---
 layout: page
-title: PVDF-HFP Capacitor
+title: Ferroelectric Capacitor
 description: Ferroelectric Capacitor Fabrication and Characterization
 img: assets/img/sample_structure.png
 importance: 2
