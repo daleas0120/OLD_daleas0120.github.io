@@ -265,7 +265,7 @@ display_tags: ['formatting', 'images', 'links', 'math', 'code'] # these tags wil
 scholar:
 
   last_name: [Dale]
-  first_name: [Ashley, S.]
+  first_name: [Ashley, S]
 
   style: apa
   locale: en
