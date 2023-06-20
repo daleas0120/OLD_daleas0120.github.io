@@ -3,7 +3,7 @@ layout: page
 title: Improving β-phase PVDF
 description: Rehabilitation of Langmuir-Blodgett Deposition system
 img: assets/img/beta_phase_approaches.png
-importance: 6
+importance: 3
 category: physics
 ---
 

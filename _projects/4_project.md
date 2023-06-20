@@ -3,8 +3,8 @@ layout: page
 title: 3D Latent Space Analysis
 description: Exploring the latent feature representations of datasets
 img: assets/gif/proj_4_3DlatentSpace.gif
-importance: 4
-category: computer vision
+importance: 1
+category: machine learning
 ---
 
 <div class="row">

@@ -5,7 +5,7 @@ permalink: /projects/
 description: A growing collection of my cool-er projects
 nav: true
 nav_order: 2
-display_categories: [physics, machine learning]
+display_categories: [physics, machine learning, education]
 horizontal: false
 ---
 

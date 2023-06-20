@@ -3,7 +3,7 @@ layout: page
 title: Ferroelectric Capacitor
 description: Ferroelectric Capacitor Fabrication and Characterization
 img: assets/img/sample_structure.png
-importance: 2
+importance: 3
 category: physics
 ---
 

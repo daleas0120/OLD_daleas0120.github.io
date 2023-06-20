@@ -3,7 +3,7 @@ layout: page
 title: Ising Model Simulations
 description: 3D heterostructures and their activation energies
 img: assets/gif/proj_3_3DMCIMS.gif
-importance: 3
+importance: 1
 category: physics
 ---
 
