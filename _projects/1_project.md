@@ -4,7 +4,7 @@ title: 3D Movies of Antenna Patterns
 description: 3D Visualization of RF Signals in Electronic Warfare to Enhance Warfighter Training 
 img: assets/gif/proj_1_dipole.gif
 importance: 1
-category: work
+category: computer vision
 ---
 
 

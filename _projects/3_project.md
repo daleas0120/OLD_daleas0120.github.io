@@ -1,10 +1,10 @@
 ---
 layout: page
-title: 3D Simulations
-description: Metropolis-Hastings simulations of 3D Ising Heterostructures
+title: Ising Model Simulations
+description: 3D heterostructures and their activation energies
 img: assets/gif/proj_3_3DMCIMS.gif
 importance: 3
-category: work
+category: physics
 ---
 
 <div class="row">
@@ -13,5 +13,8 @@ category: work
     </div>
 </div>
 <div class="caption">
-    Simulation of 3D Ising Lattice
+    Simulation of 3D Ising Lattice.
 </div>
+
+
+

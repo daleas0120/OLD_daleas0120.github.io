@@ -1,80 +1,26 @@
 ---
 layout: page
-title: project 5
-description: a project with a background image
-img: assets/img/1.jpg
-importance: 3
-category: fun
+title: Improving β-phase PVDF
+description: Rehabilitation of Langmuir-Blodgett Deposition system
+img: assets/img/beta_phase_approaches.png
+importance: 6
+category: physics
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
-
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
-
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
-
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/beta_phase_approaches.png" title="Paths to β-phase PVDF" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
-</div>
-
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, *bled* for your project, and then... you reveal its glory in the next row of images.
-
-
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
+    Overview of processes which culminate in β-phase PVDF crystal structure. Crystal phases are denoted in circles with a depiction of the relevant configuration, physical processes used as a starting point for obtaining crystalline structure are denoted in squares. Compiled from <a href="https://www.mdpi.com/2073-4360/10/3/228">[1]</a>, <a href="https://books.google.com/books?id=_M8B6ISHxFUC&lpg=PA63&ots=Q_-y2SgSO3&dq=Kohji%20Tashiro.%20Crystal%20structure%20and%20phase%20transition%20of%20pvdf%20and%20related%20copoly-%20mers.%20Ferroelectric%20Polymers%3A%20Chemistry%20Physics%20and%20Applications%2C%2028%3A63%E2%80%93182%2C%201995.&lr&pg=PA63#v=onepage&q&f=false">[2]</a>, <a href="https://www.sciencedirect.com/science/article/abs/pii/S0079670013000865">[3]</a>.  Image source <a href="https://scholarworks.iupui.edu/handle/1805/22686">[4]</a>.
 </div>
 
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+[1] <a href="https://www.mdpi.com/2073-4360/10/3/228">Liuxia Ruan, Xiannian Yao, Yufang Chang, Lianqun Zhou, Gaowu Qin, and Xianmin Zhang. Properties and applications of the β phase poly (vinylidene fluoride). Polymers, 10(3):228, 2018.</a>
 
-{% raw %}
-```html
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-```
-{% endraw %}
+[2] <a href="https://books.google.com/books?id=_M8B6ISHxFUC&lpg=PA63&ots=Q_-y2SgSO3&dq=Kohji%20Tashiro.%20Crystal%20structure%20and%20phase%20transition%20of%20pvdf%20and%20related%20copoly-%20mers.%20Ferroelectric%20Polymers%3A%20Chemistry%20Physics%20and%20Applications%2C%2028%3A63%E2%80%93182%2C%201995.&lr&pg=PA63#v=onepage&q&f=false">Kohji Tashiro. Crystal structure and phase transition of pvdf and related copoly- mers. Ferroelectric Polymers: Chemistry Physics and Applications, 28:63–182, 1995.</a>
+
+[3] <a href="https://www.sciencedirect.com/science/article/abs/pii/S0079670013000865">P Martins, AC Lopes, and S Lanceros-Mendez. Electroactive phases of poly (vinylidene fluoride): Determination, processing and applications. Progress in polymer science, 39(4):683–706, 2014.</a>
+
+[4] <a href="https://scholarworks.iupui.edu/handle/1805/22686">Dale, A. S. (2020). Developing an approach to improve beta-phase properties in ferroelectric pvd-hfp thin films (Masters thesis).</a>

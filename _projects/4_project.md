@@ -4,7 +4,7 @@ title: 3D Latent Space Analysis
 description: Exploring the latent feature representations of datasets
 img: assets/gif/proj_4_3DlatentSpace.gif
 importance: 4
-category: work
+category: computer vision
 ---
 
 <div class="row">
