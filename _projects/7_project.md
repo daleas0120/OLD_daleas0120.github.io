@@ -3,7 +3,7 @@ layout: page
 title: Markov Chain Exploration
 description: Two examples of how to implment a markov chain in Python
 img: 
-importance: 2
+importance: 3
 category: education
 ---
 

@@ -3,8 +3,8 @@ layout: page
 title: Predict Temperature of Ising Lattice
 description: Given a 2D Ising Lattice, can we use a non-linear model to predict the temperature?
 img: assets/gif/ising_model_temp_predict.gif
-importance: 4
-category: education
+importance: 2
+category: machine learning
 ---
 
 

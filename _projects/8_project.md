@@ -3,7 +3,7 @@ layout: page
 title: Anntenna Pattern Manipulables
 description: For when visualization isn't enough
 img: assets/img/3D_printed_antennas.png
-importance: 3
+importance: 4
 category: education
 ---
 
