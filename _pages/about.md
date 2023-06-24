@@ -23,7 +23,7 @@ Hello World!
 
 I am a condensed matter physicist studying spin-crossover materials.  I also have a background in machine learning, explainable AI, and computer vision.  
 
-My work has applications in spintronics, novel transistor design and fabrication, black-box model exploration, Monte-Carlo simulation, latent-model analysis, and physics education.
+My work has applications in <a href="">spintronics</a>, novel transistor design and fabrication, black-box model exploration, Monte-Carlo simulation, latent-model analysis, and <a href="https://github.com/GDS-Education-Community-of-Practice/DSECOP/tree/main/Connecting_MonteCarlo_to_ModernAI">physics education</a>.
 
 <!-- Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
 
