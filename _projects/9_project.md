@@ -4,7 +4,7 @@ title: Network Pruning Example
 description: Efficient networks for the win!
 img: assets/img/proj9_output_10_0.png
 importance: 4
-category: education
+category: machine learning
 ---
 
 # Network Pruning Example
