@@ -74,11 +74,12 @@ fig.suptitle('Iris Dataset')
 plt.show()
 ```
 
-
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/gif/assets/img/proj9_output_5_0.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
     
-![png](assets/img/proj9_output_5_0.png)
-    
-
 
 ## Model
 
@@ -112,12 +113,13 @@ plt.title("Network Architecture")
 plt.show()
 ```
 
-
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/proj9_output_7_0.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
     
-![png](assets/img/proj9_output_7_0.png)
     
-
-
 The model is then trained for 1000 steps using stochastic gradient descent, L2 regularization using an alpha value of 0.1, and a cross entropy loss.  The figure below shows the model architecture with connections between perceptrons visualized according to their relative weight.
 
 
@@ -175,9 +177,11 @@ plt.title('Updated Network Architecture')
 plt.show()
 ```
 
-
-    
-![png](assets/img/proj9_output_10_0.png)
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/proj9_output_10_0.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
     
 
 
@@ -195,10 +199,12 @@ ax.set_title('Training Loss')
 plt.show()
 ```
 
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/proj9_output_12_0.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
 
-    
-![png](assets/img/proj9_output_12_0.png)
-    
 
 
 Predictions are made on the test set, and an initial mean average precision is calculated.  The range of the mean average precision is [0,1], with a value of 1 equivalent to perfect precision.
@@ -307,9 +313,12 @@ ax[1].set_ylabel('Num Weights Removed')
 plt.show()
 ```
 
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/proj9_output_22_0.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
 
-    
-![png](assets/img/proj9_output_22_0.png)
     
 
 
