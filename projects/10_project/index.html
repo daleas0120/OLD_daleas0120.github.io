@@ -343,14 +343,7 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dist</span><span class="p">,</span> <span class="n">matching</span> <span class="o">=</span> <span class="n">persim</span><span class="p">.</span><span class="nf">bottleneck</span><span class="p">(</span><span class="n">uniform_persis</span><span class="p">,</span> <span class="n">norm_persis</span><span class="p">,</span> <span class="n">matching</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Bottleneck distance: </span><span class="sh">"</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span>
 </code></pre></div></div>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/local/lib/python3.10/dist-packages/persim/bottleneck.py:56: UserWarning: dgm1 has points with non-finite death times;ignoring those points
-  warnings.warn(
-/usr/local/lib/python3.10/dist-packages/persim/bottleneck.py:66: UserWarning: dgm2 has points with non-finite death times;ignoring those points
-  warnings.warn(
-
-
-Bottleneck distance:  0.21679964357072135
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Bottleneck distance:  0.21679964357072135
 </code></pre></div></div>
 
 <p>I can also print the coordinates of the two birth-death points connected by the bottleneck distance.</p>
@@ -550,14 +543,7 @@ Normal Persistence Coordinate:  [0.0, inf]
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dist2</span><span class="p">,</span> <span class="n">matching2</span> <span class="o">=</span> <span class="n">persim</span><span class="p">.</span><span class="nf">bottleneck</span><span class="p">(</span><span class="n">rings_persis</span><span class="p">,</span> <span class="n">rings2_persis</span><span class="p">,</span> <span class="n">matching</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Bottleneck distance: </span><span class="sh">"</span><span class="p">,</span> <span class="n">dist2</span><span class="p">)</span>
 </code></pre></div></div>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/local/lib/python3.10/dist-packages/persim/bottleneck.py:56: UserWarning: dgm1 has points with non-finite death times;ignoring those points
-  warnings.warn(
-/usr/local/lib/python3.10/dist-packages/persim/bottleneck.py:66: UserWarning: dgm2 has points with non-finite death times;ignoring those points
-  warnings.warn(
-
-
-Bottleneck distance:  0.27734036348549507
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Bottleneck distance:  0.27734036348549507
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">persim</span><span class="p">.</span><span class="nf">bottleneck_matching</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">rings_persis</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">rings2_persis</span><span class="p">),</span> <span class="n">matching</span><span class="o">=</span><span class="n">matching2</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="sh">'</span><span class="s">Rings</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Noisy Rings</span><span class="sh">'</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
@@ -601,12 +587,6 @@ Bottleneck distance:  0.27734036348549507
 <span class="n">dist4</span><span class="p">,</span> <span class="n">matching4</span> <span class="o">=</span> <span class="n">persim</span><span class="p">.</span><span class="nf">bottleneck</span><span class="p">(</span><span class="n">rings2_persis</span><span class="p">,</span> <span class="n">norm_persis</span><span class="p">,</span> <span class="n">matching</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">dist5</span><span class="p">,</span> <span class="n">matching5</span> <span class="o">=</span> <span class="n">persim</span><span class="p">.</span><span class="nf">bottleneck</span><span class="p">(</span><span class="n">rings2_persis</span><span class="p">,</span> <span class="n">uniform_persis</span><span class="p">,</span> <span class="n">matching</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">dist6</span><span class="p">,</span> <span class="n">matching6</span> <span class="o">=</span> <span class="n">persim</span><span class="p">.</span><span class="nf">bottleneck</span><span class="p">(</span><span class="n">rings_persis</span><span class="p">,</span> <span class="n">uniform_persis</span><span class="p">,</span> <span class="n">matching</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-</code></pre></div></div>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/local/lib/python3.10/dist-packages/persim/bottleneck.py:56: UserWarning: dgm1 has points with non-finite death times;ignoring those points
-  warnings.warn(
-/usr/local/lib/python3.10/dist-packages/persim/bottleneck.py:66: UserWarning: dgm2 has points with non-finite death times;ignoring those points
-  warnings.warn(
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Uniform to normally distributed data bottleneck distance: </span><span class="sh">"</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span>
