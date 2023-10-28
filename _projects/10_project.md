@@ -210,13 +210,6 @@ norm_persis = np.array([itm[1] for itm in norm_barcode])
 dist, matching = persim.bottleneck(uniform_persis, norm_persis, matching=True)
 print("Bottleneck distance: ", dist)
 ```
-
-    /usr/local/lib/python3.10/dist-packages/persim/bottleneck.py:56: UserWarning: dgm1 has points with non-finite death times;ignoring those points
-      warnings.warn(
-    /usr/local/lib/python3.10/dist-packages/persim/bottleneck.py:66: UserWarning: dgm2 has points with non-finite death times;ignoring those points
-      warnings.warn(
-
-
     Bottleneck distance:  0.21679964357072135
 
 
@@ -400,13 +393,6 @@ rings2_persis = np.array([itm[1] for itm in rings_barcode2])
 dist2, matching2 = persim.bottleneck(rings_persis, rings2_persis, matching=True)
 print("Bottleneck distance: ", dist2)
 ```
-
-    /usr/local/lib/python3.10/dist-packages/persim/bottleneck.py:56: UserWarning: dgm1 has points with non-finite death times;ignoring those points
-      warnings.warn(
-    /usr/local/lib/python3.10/dist-packages/persim/bottleneck.py:66: UserWarning: dgm2 has points with non-finite death times;ignoring those points
-      warnings.warn(
-
-
     Bottleneck distance:  0.27734036348549507
 
 
@@ -450,13 +436,6 @@ dist4, matching4 = persim.bottleneck(rings2_persis, norm_persis, matching=True)
 dist5, matching5 = persim.bottleneck(rings2_persis, uniform_persis, matching=True)
 dist6, matching6 = persim.bottleneck(rings_persis, uniform_persis, matching=True)
 ```
-
-    /usr/local/lib/python3.10/dist-packages/persim/bottleneck.py:56: UserWarning: dgm1 has points with non-finite death times;ignoring those points
-      warnings.warn(
-    /usr/local/lib/python3.10/dist-packages/persim/bottleneck.py:66: UserWarning: dgm2 has points with non-finite death times;ignoring those points
-      warnings.warn(
-
-
 
 ```python
 print("Uniform to normally distributed data bottleneck distance: ", dist)
