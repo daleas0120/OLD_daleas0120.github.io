@@ -9,7 +9,7 @@ category: machine learning
 
 ## Introduction
 
-<a href=\"https://colab.research.google.com/github/daleas0120/Example_notebooks/blob/main/Network_Pruning_Example.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>
+<a href="https://colab.research.google.com/github/daleas0120/Example_notebooks/blob/main/Network_Pruning_Example.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 Model pruning is an effective way to reduce model size and complexity.  It is a heuristic approach that removes nodes from a network by considering a weight threshold in the context of model performance.  In the notebook below, a simple multi-layer perceptron is used to classify two of the three classes from the *Iris* dataset.  Results show that for the data and network structure given, it is possible to eliminate many of the connections.
 
@@ -76,7 +76,7 @@ plt.show()
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/gif/assets/img/proj9_output_5_0.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/proj9_output_5_0.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
     
