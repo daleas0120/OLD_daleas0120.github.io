@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <!-- Head -->
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    <!-- Metadata, OpenGraph and Schema.org -->
+    
+
+    <!-- Standard metadata -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>LSTM-AE Anomaly Detection | Ashley S. Dale</title>
+    <meta name="author" content="Ashley S. Dale">
+    <meta name="description" content="Detecting anomalies in the power grid supply using simple machine learning techniques">
+    <meta name="keywords" content="physics, machine learning, spintronics, spin-crossover, computational physics, post-doc,">
+
+
+    <!-- Bootstrap & MDB -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-DF7Zhf293AJxJNTmh5zhoYYIMs2oXitRfBjY+9L//AY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous">
+
+    <!-- Bootstrap Table -->
+    <link defer rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css">
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha256-i1+4qU2G2860dGGIOJscdC30s9beBXjFfzjWLjBRsBg=" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons">
+
+    <!-- Code Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/github.css" media="" id="highlight_theme_light">
+
+    
+
+    <!-- Styles -->
+    
+    <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://daleas0120.github.io/projects/11_project/">
+
+    <!-- Dark Mode -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/native.css" media="none" id="highlight_theme_dark">
+
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/dark_mode.js"></script>
+    
+
+  </head>
+
+  <!-- Body -->
+  <body class="fixed-top-nav ">
+
+    <!-- Header -->
+    <header>
+
+      <!-- Nav Bar -->
+      <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top">
+        <div class="container">
+          <a class="navbar-brand title font-weight-lighter" href="/"><span class="font-weight-bold">Ashley </span>S. Dale</a>
+          <!-- Navbar Toggle -->
+          <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar top-bar"></span>
+            <span class="icon-bar middle-bar"></span>
+            <span class="icon-bar bottom-bar"></span>
+          </button>
+
+          <div class="collapse navbar-collapse text-right" id="navbarNav">
+            <ul class="navbar-nav ml-auto flex-nowrap">
+
+              <!-- About -->
+              <li class="nav-item ">
+                <a class="nav-link" href="/">about</a>
+              </li>
+              
+
+              <!-- Other pages -->
+              <li class="nav-item ">
+                <a class="nav-link" href="/publications/">publications</a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link" href="/projects/">projects</a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link" href="/cv/">cv</a>
+              </li>
+              <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">explore</a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/publications/">publications</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/projects/">projects</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/repositories/">repositories</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/teaching/">teaching</a>
+                </div>
+              </li>
+
+              <!-- Toogle theme mode -->
+              <li class="toggle-container">
+                <button id="light-toggle" title="Change theme">
+                  <i class="fas fa-moon"></i>
+                  <i class="fas fa-sun"></i>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Scrolling Progress Bar -->
+      <progress id="progress" value="0">
+        <div class="progress-container">
+          <span class="progress-bar"></span>
+        </div>
+      </progress>
+    </header>
+
+
+    <!-- Content -->
+    <div class="container mt-5">
+      
+        <!-- page.html -->
+        <div class="post">
+
+          <header class="post-header">
+            <h1 class="post-title">LSTM-AE Anomaly Detection</h1>
+            <p class="post-description">Detecting anomalies in the power grid supply using simple machine learning techniques</p>
+          </header>
+
+          <article>
+            <h1 id="introduction">Introduction</h1>
+
+<p><a href="https://colab.research.google.com/github/daleas0120/Example_notebooks/blob/main/LSTM_AE_Anomaly_Prediction.ipynb" target="_parent" rel="external nofollow noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
+
+<p>Power grid fault detection can be framed as an anomaly detection problem, and approached using machine learning techniques. In this notebook, voltage and current time series data from a three-phase power system is analyzed using a Long Short Term Memory Autoencoder (LSTM-AE). The LSTM-AE learns to take an input sequence and reconstruct; the reconstruction error is minimized during this process. When the LSTM-AE is required to reconstruct data outside the training data distribution, reconstruction error increases and signals that the data can be considered anomalous. Here, the LSTM-AE is trained using data from the power grid in a correct state, and the reconstruction scores of the network in various anomalous states are examined. The results are not promising. Anomalous scores are not strongly correlated with the onset of a power grid fault. This is attributed to the simplicity of the LSTM-AE architecture and lack of data. A brief discussion on what can be done to improve results is presented.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="n">sklearn</span> <span class="k">as</span> <span class="n">skl</span>
+<span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="n">csv</span>
+<span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="n">keras</span>
+<span class="kn">from</span> <span class="n">keras</span> <span class="kn">import</span> <span class="n">layers</span>
+
+<span class="kn">from</span> <span class="n">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span><span class="p">,</span> <span class="n">trange</span>
+<span class="kn">import</span> <span class="n">tensorflow</span> <span class="k">as</span> <span class="n">tf</span>
+<span class="kn">from</span> <span class="n">scipy.signal</span> <span class="kn">import</span> <span class="n">find_peaks</span>
+</code></pre></div></div>
+
+<h2 id="data">Data</h2>
+
+<p><a href="https://www.kaggle.com/datasets/esathyaprakash/electrical-fault-detection-and-classification" rel="external nofollow noopener" target="_blank">The data may be downloaded directly from here</a> and placed in the correct location.</p>
+
+<p>From the original data authors:</p>
+<blockquote>
+  <p>We have modeled a power system in MATLAB to simulate fault analysis. The power system consists of 4 generators of 11 × 10^3 V, each pair located at each end of the transmission line. Transformers are present in between to simulate and study the various faults at the midpoint of the transmission line.</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_file</span> <span class="o">=</span> <span class="sh">"</span><span class="s">data/classData.csv</span><span class="sh">"</span>
+<span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nf">read_csv</span><span class="p">(</span><span class="n">train_file</span><span class="p">)</span>
+<span class="n">test_file</span> <span class="o">=</span> <span class="sh">"</span><span class="s">data/detect_dataset.csv</span><span class="sh">"</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nf">read_csv</span><span class="p">(</span><span class="n">test_file</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="train-data">Train Data</h2>
+<p>Inspecting the train data to understand the available features:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>G</th>
+      <th>C</th>
+      <th>B</th>
+      <th>A</th>
+      <th>Ia</th>
+      <th>Ib</th>
+      <th>Ic</th>
+      <th>Va</th>
+      <th>Vb</th>
+      <th>Vc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>-151.291812</td>
+      <td>-9.677452</td>
+      <td>85.800162</td>
+      <td>0.400750</td>
+      <td>-0.132935</td>
+      <td>-0.267815</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>-336.186183</td>
+      <td>-76.283262</td>
+      <td>18.328897</td>
+      <td>0.312732</td>
+      <td>-0.123633</td>
+      <td>-0.189099</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>-502.891583</td>
+      <td>-174.648023</td>
+      <td>-80.924663</td>
+      <td>0.265728</td>
+      <td>-0.114301</td>
+      <td>-0.151428</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>-593.941905</td>
+      <td>-217.703359</td>
+      <td>-124.891924</td>
+      <td>0.235511</td>
+      <td>-0.104940</td>
+      <td>-0.130570</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>-643.663617</td>
+      <td>-224.159427</td>
+      <td>-132.282815</td>
+      <td>0.209537</td>
+      <td>-0.095554</td>
+      <td>-0.113983</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>7856</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-66.237921</td>
+      <td>38.457041</td>
+      <td>24.912239</td>
+      <td>0.094421</td>
+      <td>-0.552019</td>
+      <td>0.457598</td>
+    </tr>
+    <tr>
+      <th>7857</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-65.849493</td>
+      <td>37.465454</td>
+      <td>25.515675</td>
+      <td>0.103778</td>
+      <td>-0.555186</td>
+      <td>0.451407</td>
+    </tr>
+    <tr>
+      <th>7858</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-65.446698</td>
+      <td>36.472055</td>
+      <td>26.106554</td>
+      <td>0.113107</td>
+      <td>-0.558211</td>
+      <td>0.445104</td>
+    </tr>
+    <tr>
+      <th>7859</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-65.029633</td>
+      <td>35.477088</td>
+      <td>26.684731</td>
+      <td>0.122404</td>
+      <td>-0.561094</td>
+      <td>0.438690</td>
+    </tr>
+    <tr>
+      <th>7860</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-64.598401</td>
+      <td>34.480799</td>
+      <td>27.250065</td>
+      <td>0.131669</td>
+      <td>-0.563835</td>
+      <td>0.432166</td>
+    </tr>
+  </tbody>
+</table>
+<p>7861 rows × 10 columns</p>
+</div>
+
+<p>Plotting the current data…</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ia</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ia</span><span class="sh">"</span><span class="p">])),</span> <span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ia</span><span class="sh">"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$I_a$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ia</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ib</span><span class="sh">"</span><span class="p">])),</span> <span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ib</span><span class="sh">"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$I_b$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ia</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ic</span><span class="sh">"</span><span class="p">])),</span> <span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ic</span><span class="sh">"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$I_c$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Time Step $\Delta t$</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Current $I$</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">savefig</span><span class="p">(</span><span class="sh">"</span><span class="s">figures/train_data_current.png</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/proj11_output_7_0.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" title="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<p>and the voltage data …</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Va</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Va</span><span class="sh">"</span><span class="p">])),</span> <span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Va</span><span class="sh">"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$V_a$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Vb</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Vb</span><span class="sh">"</span><span class="p">])),</span> <span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Vb</span><span class="sh">"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$V_b$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Vc</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Vc</span><span class="sh">"</span><span class="p">])),</span> <span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Vc</span><span class="sh">"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$V_c$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Time Step $\Delta t$</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Voltage $V$</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">savefig</span><span class="p">(</span><span class="sh">"</span><span class="s">figures/train_data_voltage.png</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/proj11_output_9_0.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" title="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<h3 id="convert-one-hot-labels-to-integers">Convert one-hot labels to integers</h3>
+<p>One-hot|Description|Integer
+—|—|—
+[0 0 0 0] | No Fault | 0
+[1 0 0 1] | LG fault (Between Phase A and Ground) | 9
+[0 0 1 1] | LL fault (Between Phase A and Phase B) | 3
+[1 0 1 1] | LLG Fault (Between Phases A,B and Ground) | 11
+[0 1 1 1] | LLL Fault (Between all three phases) | 7
+[1 1 1 1] | LLLG fault (Three phase symmetrical fault) | 15</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_arr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">train</span><span class="p">)</span>
+<span class="n">num_rows</span> <span class="o">=</span> <span class="n">train_arr</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">new_labels</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nf">trange</span><span class="p">(</span><span class="n">num_rows</span><span class="p">):</span>
+    <span class="n">data_pt</span> <span class="o">=</span> <span class="n">train_arr</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="nf">str</span><span class="p">(</span><span class="nf">int</span><span class="p">(</span><span class="n">data_pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">+</span><span class="nf">str</span><span class="p">(</span><span class="nf">int</span><span class="p">(</span><span class="n">data_pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span><span class="o">+</span><span class="nf">str</span><span class="p">(</span><span class="nf">int</span><span class="p">(</span><span class="n">data_pt</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span><span class="o">+</span><span class="nf">str</span><span class="p">(</span><span class="nf">int</span><span class="p">(</span><span class="n">data_pt</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">new_labels</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>100%|█████████████████████████████████████████████████████████████████████████████████████| 7861/7861 [00:00&lt;00:00, 393500.70it/s]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">training_data_idx</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">new_labels</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_data</span> <span class="o">=</span> <span class="n">train_arr</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">new_labels</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">][:,</span> <span class="mi">4</span><span class="p">:]</span>
+<span class="n">y_labels</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">zeros</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">not_train_data</span> <span class="o">=</span> <span class="n">train_arr</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">new_labels</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">][:,</span> <span class="mi">4</span><span class="p">:]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_labels</span>
+</code></pre></div></div>
+
+<h2 id="no-fault-data">No-Fault Data</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">)),</span> <span class="n">train_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$I_a$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">)),</span> <span class="n">train_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$I_b$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">)),</span> <span class="n">train_data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$I_c$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Time Step $\Delta t$</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Current $I$</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">savefig</span><span class="p">(</span><span class="sh">"</span><span class="s">figures/train_data_current.png</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/proj11_output_18_0.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" title="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">)),</span> <span class="n">train_data</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$V_a$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">)),</span> <span class="n">train_data</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$V_b$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">)),</span> <span class="n">train_data</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$V_c$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Time Step $\Delta t$</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Voltage $V$</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">savefig</span><span class="p">(</span><span class="sh">"</span><span class="s">figures/train_data_voltage.png</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/proj11_output_19_0.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" title="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<p>Format the data to be suitable for an LSTM-AE:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">make_seq</span><span class="p">(</span><span class="n">data_arr</span><span class="p">,</span> <span class="n">window</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nf">trange</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">data_arr</span><span class="p">)</span> <span class="o">-</span> <span class="n">window</span><span class="p">):</span>
+        <span class="n">data</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">data_arr</span><span class="p">[</span><span class="n">idx</span><span class="p">:</span><span class="n">idx</span><span class="o">+</span><span class="n">window</span><span class="p">,</span> <span class="p">:])</span>
+    
+    <span class="nf">print</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">data</span><span class="p">).</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">timesteps</span> <span class="o">=</span> <span class="mi">55</span>
+<span class="n">crop_pts</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">mod</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">),</span> <span class="n">timesteps</span><span class="p">)</span>
+
+<span class="n">train_arr_noFault</span> <span class="o">=</span> <span class="nf">make_seq</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">timesteps</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>100%|████████████████████████████████████████████████████████████████████████████████████| 2310/2310 [00:00&lt;00:00, 1426088.05it/s]
+
+(2310, 55, 6)
+</code></pre></div></div>
+
+<h2 id="test-data">Test Data</h2>
+
+<p>Inspecting and visualizing the test data…</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Output (S)</th>
+      <th>Ia</th>
+      <th>Ib</th>
+      <th>Ic</th>
+      <th>Va</th>
+      <th>Vb</th>
+      <th>Vc</th>
+      <th>Unnamed: 7</th>
+      <th>Unnamed: 8</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>-170.472196</td>
+      <td>9.219613</td>
+      <td>161.252583</td>
+      <td>0.054490</td>
+      <td>-0.659921</td>
+      <td>0.605431</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>-122.235754</td>
+      <td>6.168667</td>
+      <td>116.067087</td>
+      <td>0.102000</td>
+      <td>-0.628612</td>
+      <td>0.526202</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>-90.161474</td>
+      <td>3.813632</td>
+      <td>86.347841</td>
+      <td>0.141026</td>
+      <td>-0.605277</td>
+      <td>0.464251</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>-79.904916</td>
+      <td>2.398803</td>
+      <td>77.506112</td>
+      <td>0.156272</td>
+      <td>-0.602235</td>
+      <td>0.445963</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>-63.885255</td>
+      <td>0.590667</td>
+      <td>63.294587</td>
+      <td>0.180451</td>
+      <td>-0.591501</td>
+      <td>0.411050</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>11996</th>
+      <td>0</td>
+      <td>-66.237921</td>
+      <td>38.457041</td>
+      <td>24.912239</td>
+      <td>0.094421</td>
+      <td>-0.552019</td>
+      <td>0.457598</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>11997</th>
+      <td>0</td>
+      <td>-65.849493</td>
+      <td>37.465454</td>
+      <td>25.515675</td>
+      <td>0.103778</td>
+      <td>-0.555186</td>
+      <td>0.451407</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>11998</th>
+      <td>0</td>
+      <td>-65.446698</td>
+      <td>36.472055</td>
+      <td>26.106554</td>
+      <td>0.113107</td>
+      <td>-0.558211</td>
+      <td>0.445104</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>11999</th>
+      <td>0</td>
+      <td>-65.029633</td>
+      <td>35.477088</td>
+      <td>26.684731</td>
+      <td>0.122404</td>
+      <td>-0.561094</td>
+      <td>0.438690</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12000</th>
+      <td>0</td>
+      <td>-64.598401</td>
+      <td>34.480799</td>
+      <td>27.250065</td>
+      <td>0.131669</td>
+      <td>-0.563835</td>
+      <td>0.432166</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>12001 rows × 9 columns</p>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ia</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ia</span><span class="sh">"</span><span class="p">])),</span> <span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ia</span><span class="sh">"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$I_a$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ia</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ib</span><span class="sh">"</span><span class="p">])),</span> <span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ib</span><span class="sh">"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$I_b$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ia</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ic</span><span class="sh">"</span><span class="p">])),</span> <span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ic</span><span class="sh">"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$I_c$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Time Step $\Delta t$</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Current $I$</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">savefig</span><span class="p">(</span><span class="sh">"</span><span class="s">figures/test_data_current.png</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/proj11_output_25_0.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" title="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Va</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Va</span><span class="sh">"</span><span class="p">])),</span> <span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Va</span><span class="sh">"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$V_a$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Vb</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Vb</span><span class="sh">"</span><span class="p">])),</span> <span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Vb</span><span class="sh">"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$V_b$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Vc</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Vc</span><span class="sh">"</span><span class="p">])),</span> <span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Vc</span><span class="sh">"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$V_c$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Time Step $\Delta t$</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Voltage $V$</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">savefig</span><span class="p">(</span><span class="sh">"</span><span class="s">figures/test_data_voltage.png</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/proj11_output_26_0.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" title="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test_arr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="nf">make_seq</span><span class="p">(</span><span class="n">test_arr</span><span class="p">,</span> <span class="n">timesteps</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>100%|██████████████████████████████████████████████████████████████████████████████████| 11946/11946 [00:00&lt;00:00, 1486932.24it/s]
+
+(11946, 55, 6)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_full</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">train_arr</span><span class="p">)[:,</span> <span class="mi">4</span><span class="p">:]</span>
+<span class="n">train_full_data</span> <span class="o">=</span> <span class="nf">make_seq</span><span class="p">(</span><span class="n">train_full</span><span class="p">,</span> <span class="n">timesteps</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>100%|████████████████████████████████████████████████████████████████████████████████████| 7806/7806 [00:00&lt;00:00, 1549050.77it/s]
+
+(7806, 55, 6)
+</code></pre></div></div>
+
+<h1 id="lstm-ae">LSTM AE</h1>
+
+<h3 id="network-definition">Network Definition</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">input_dim</span> <span class="o">=</span> <span class="mi">6</span> 
+<span class="n">latent_dim</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">5000</span>
+
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="p">.</span><span class="nc">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">timesteps</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">))</span>
+<span class="n">encoded</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="nc">LSTM</span><span class="p">(</span><span class="n">latent_dim</span><span class="p">,</span>  <span class="n">activation</span><span class="o">=</span><span class="sh">"</span><span class="s">tanh</span><span class="sh">"</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+
+<span class="n">decoded</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="nc">RepeatVector</span><span class="p">(</span><span class="n">timesteps</span><span class="p">)(</span><span class="n">encoded</span><span class="p">)</span>
+<span class="n">decoded</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="nc">LSTM</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">return_sequences</span><span class="o">=</span><span class="bp">True</span><span class="p">)(</span><span class="n">decoded</span><span class="p">)</span>
+<span class="n">loss_fn</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="n">losses</span><span class="p">.</span><span class="nc">MeanAbsolutePercentageError</span><span class="p">()</span>
+
+<span class="n">callback</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="n">callbacks</span><span class="p">.</span><span class="nc">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="sh">'</span><span class="s">loss</span><span class="sh">'</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_delta</span><span class="o">=</span><span class="mf">0.00001</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model2</span> <span class="o">=</span> <span class="n">keras</span><span class="p">.</span><span class="nc">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">decoded</span><span class="p">)</span>
+<span class="n">model2</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span><span class="n">keras</span><span class="p">.</span><span class="n">optimizers</span><span class="p">.</span><span class="nc">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">3e-5</span><span class="p">),</span> <span class="n">loss_fn</span><span class="p">)</span>
+<span class="n">model2</span><span class="p">.</span><span class="nf">summary</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Model: "model"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ input_1 (InputLayer)        [(None, 55, 6)]           0         
+                                                                 
+ lstm (LSTM)                 (None, 4)                 176       
+                                                                 
+ repeat_vector (RepeatVecto  (None, 55, 4)             0         
+ r)                                                              
+                                                                 
+ lstm_1 (LSTM)               (None, 55, 6)             264       
+                                                                 
+=================================================================
+Total params: 440 (1.72 KB)
+Trainable params: 440 (1.72 KB)
+Non-trainable params: 0 (0.00 Byte)
+_________________________________________________________________
+</code></pre></div></div>
+
+<h2 id="training-the-model">Training the model</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">history2</span> <span class="o">=</span> <span class="n">model2</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">train_arr_noFault</span><span class="p">,</span> <span class="n">train_arr_noFault</span><span class="p">,</span>
+                <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span>
+                <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+                <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">train_arr_noFault</span><span class="p">,</span> <span class="n">train_arr_noFault</span><span class="p">),</span>
+                      <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">callback</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Epoch 1/5000
+73/73 [==============================] - 5s 31ms/step - loss: 142.6676 - val_loss: 141.7920
+...
+
+Epoch 872/5000
+73/73 [==============================] - 3s 47ms/step - loss: 84.1487 - val_loss: 84.0539
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">history2</span><span class="p">.</span><span class="n">history</span><span class="p">[</span><span class="sh">'</span><span class="s">loss</span><span class="sh">'</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">history2</span><span class="p">.</span><span class="n">history</span><span class="p">[</span><span class="sh">'</span><span class="s">loss</span><span class="sh">'</span><span class="p">]),</span> <span class="n">epochs</span><span class="p">),</span> <span class="n">history2</span><span class="p">.</span><span class="n">history</span><span class="p">[</span><span class="sh">'</span><span class="s">loss</span><span class="sh">'</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">"</span><span class="s">Epochs</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">"</span><span class="s">Mean Average Percent Error</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">savefig</span><span class="p">(</span><span class="sh">'</span><span class="s">figures/LSTM_loss.png</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/proj11_output_35_0.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" title="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<h2 id="predictions">Predictions</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">results</span> <span class="o">=</span> <span class="n">model2</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span>
+    <span class="n">test_data</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="sh">"</span><span class="s">auto</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">steps</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">callbacks</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">max_queue_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">use_multiprocessing</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>374/374 [==============================] - 4s 9ms/step
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">results2</span> <span class="o">=</span> <span class="n">model2</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span>
+    <span class="n">train_full_data</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>244/244 [==============================] - 2s 10ms/step
+</code></pre></div></div>
+
+<h2 id="calculate-statistics">Calculate Statistics</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">err</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">gt</span><span class="p">,</span> <span class="n">recon</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+    <span class="n">err</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">np</span><span class="p">.</span><span class="nf">sum</span><span class="p">([</span><span class="n">gt</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">recon</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]]</span><span class="o">/</span><span class="n">gt</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">err2</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">gt</span><span class="p">,</span> <span class="n">recon</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">train_full_data</span><span class="p">,</span> <span class="n">results2</span><span class="p">):</span>
+    <span class="n">err2</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">np</span><span class="p">.</span><span class="nf">sum</span><span class="p">([</span><span class="n">gt</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">recon</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]]</span><span class="o">/</span><span class="n">gt</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">counts</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">histogram</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">abs</span><span class="p">(</span><span class="n">err</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="nf">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="nf">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="nf">stairs</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="nf">set_yscale</span><span class="p">(</span><span class="sh">'</span><span class="s">log</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="nf">set_xscale</span><span class="p">(</span><span class="sh">'</span><span class="s">log</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="nf">set_xlabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Percent Error</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="nf">set_ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Count</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/proj11_output_41_0.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" title="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<h1 id="finding-anomalies">Finding Anomalies</h1>
+<p>The error data can be treated as a time series, where the anomalies correlate with high error values.  These values and the times can be identified using the <code class="language-plaintext highlighter-rouge">find_peaks</code> function.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">peaks</span><span class="p">,</span> <span class="n">heights</span> <span class="o">=</span> <span class="nf">find_peaks</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">abs</span><span class="p">(</span><span class="n">err</span><span class="p">),</span> <span class="n">height</span><span class="o">=</span><span class="mi">1500</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="nf">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">scatter</span><span class="p">(</span><span class="n">peaks</span><span class="p">,</span> <span class="n">heights</span><span class="p">[</span><span class="sh">'</span><span class="s">peak_heights</span><span class="sh">'</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">plot</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">err</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">err</span><span class="p">)),</span> <span class="n">np</span><span class="p">.</span><span class="nf">abs</span><span class="p">(</span><span class="n">err</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="sh">'</span><span class="s">r</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">set_xticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">set_ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Reconstruction Error</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">set_ylabel</span><span class="p">(</span><span class="sh">''</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ia</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ia</span><span class="sh">"</span><span class="p">])),</span> <span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ia</span><span class="sh">"</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$I_a$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ib</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ib</span><span class="sh">"</span><span class="p">])),</span> <span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ib</span><span class="sh">"</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$I_b$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ic</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ic</span><span class="sh">"</span><span class="p">])),</span> <span class="n">test</span><span class="p">[</span><span class="sh">"</span><span class="s">Ic</span><span class="sh">"</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$I_c$</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">set_xlabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Time Step $\Delta t$</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">set_ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Current $I$</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/proj11_output_44_0.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" title="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<p>Ideally, the large red error peaks should be at the leading edge of each domain shift.  This is not observed in the plot above.  The blue dots on the Reconstruction Error plot shows which points have been identified as peaks.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="nf">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">new_labels</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">new_labels</span><span class="p">)),</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">new_labels</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="sh">'</span><span class="s">k</span><span class="sh">'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">'</span><span class="s">Fault Region</span><span class="sh">'</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ia</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ia</span><span class="sh">"</span><span class="p">])),</span> <span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ia</span><span class="sh">"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$I_a$</span><span class="sh">"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ib</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ib</span><span class="sh">"</span><span class="p">])),</span> <span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ib</span><span class="sh">"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$I_b$</span><span class="sh">"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ic</span><span class="sh">"</span><span class="p">]),</span> <span class="nf">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ic</span><span class="sh">"</span><span class="p">])),</span> <span class="n">train</span><span class="p">[</span><span class="sh">"</span><span class="s">Ic</span><span class="sh">"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">$I_c$</span><span class="sh">"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax</span><span class="p">.</span><span class="nf">twinx</span><span class="p">()</span>
+<span class="n">ax2</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">err2</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">err2</span><span class="p">)),</span> <span class="n">np</span><span class="p">.</span><span class="nf">abs</span><span class="p">(</span><span class="n">err2</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="sh">'</span><span class="s">r</span><span class="sh">'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">'</span><span class="s">MAPE</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="nf">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="sh">'</span><span class="s">y</span><span class="sh">'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="sh">'</span><span class="s">red</span><span class="sh">'</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="nf">set_xlabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Time Step $\Delta t$</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="nf">set_ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Current I</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="nf">set_ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">MAPE</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="sh">'</span><span class="s">right</span><span class="sh">'</span><span class="p">].</span><span class="nf">set_color</span><span class="p">(</span><span class="sh">'</span><span class="s">red</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">tight_layout</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="nf">savefig</span><span class="p">(</span><span class="sh">'</span><span class="s">figures/results2_I.png</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/proj11_output_46_0.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" title="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<p>In the plot above, a black line indicating the original labeling has been superimposed with the error peaks to better show where the labeling and error anomalies coincide.</p>
+
+<h1 id="summary">Summary</h1>
+
+<p>The LSTM-AE does generate anomaly scores for power grid fault conditions, the scores are not strongly correlated with the onset of a power grid fault and only weakly correlate with specific points in the phase of the power signal. However, in contrast to [1]–[4], the methods used here are excruciatingly simple. No data pre-processing, modified architectures, or additional information is used to identify anomalous points in the test data. The results show not only the challenges of machine learning for Smart Grid, but also its promise.</p>
+
+<h3 id="references">References</h3>
+<ol>
+  <li><a href="https://www.mdpi.com/1424-8220/20/5/1399" rel="external nofollow noopener" target="_blank">Z. A. Khan, T. Hussain, A. Ullah, S. Rho, M. Lee, and S. W. Baik, “Towards efficient electricity forecasting in residential and commercial buildings: A novel hybrid cnn with a lstm-ae based framework,” Sensors, vol. 20, no. 5, p. 1399, 2020.</a></li>
+  <li><a href="http://www.aljest.org/index.php/aljest/article/view/2841" rel="external nofollow noopener" target="_blank">A. Saoud and A. Recioui, “Load energy forecasting based on a hybrid pso lstm-ae model,” Algerian Journal of Environmental Science and Technology, vol. 9, no. 1, 2023.</a></li>
+  <li><a href="https://www.sciencedirect.com/science/article/pii/S2210670722003274" rel="external nofollow noopener" target="_blank">W. Yang, X. Li, C. Chen, and J. Hong, “Characterizing residential load patterns on multi-time scales utilizing lstm autoencoder and electricity consumption data,” Sustainable Cities and Society, vol. 84, p. 104007, 2022.</a></li>
+  <li><a href="https://ieeexplore.ieee.org/abstract/document/9783017" rel="external nofollow noopener" target="_blank">A. S. Musleh, G. Chen, Z. Y. Dong, C. Wang, and S. Chen, “Attack detection in automatic generation control systems using lstm-based stacked autoencoders,” IEEE Transactions on Industrial Informatics, vol. 19, no. 1, pp. 153–165, 2022.</a></li>
+</ol>
+
+
+          </article>
+
+        </div>
+
+      
+    </div>
+
+    <!-- Footer -->    
+    <footer class="fixed-bottom">
+      <div class="container mt-0">
+        © Copyright 2023 Ashley S. Dale. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>.
+
+      </div>
+    </footer>
+
+    <!-- JavaScripts -->
+    <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Bootsrap & MDB scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha256-fgLAgv7fyCGopR/gBNq2iW3ZKIdqIcyshnUULC4vex8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script>
+
+    <!-- Masonry & imagesLoaded -->
+  <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+  <script defer src="/assets/js/masonry.js" type="text/javascript"></script>
+    
+  <!-- Medium Zoom JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.8/dist/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
+  <script defer src="/assets/js/zoom.js"></script>
+
+  <!-- Bootstrap Table -->
+  <script defer src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+
+  <!-- Load Common JS -->
+  <script src="/assets/js/no_defer.js"></script>
+  <script defer src="/assets/js/common.js"></script>
+  <script defer src="/assets/js/copy_code.js" type="text/javascript"></script>
+
+    
+  <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
+  <script async src="https://badge.dimensions.ai/badge.js"></script>
+
+    <!-- MathJax -->
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        tags: 'ams'
+      }
+    };
+  </script>
+  <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script>
+  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    
+    
+
+<!-- Scrolling Progress Bar -->
+<script type="text/javascript">
+  /*
+   * This JavaScript code has been adapted from the article 
+   * https://css-tricks.com/reading-position-indicator/ authored by Pankaj Parashar, 
+   * published on the website https://css-tricks.com on the 7th of May, 2014.
+   * Couple of changes were made to the original code to make it compatible 
+   * with the `al-foio` theme.
+   */
+  const progressBar = $("#progress");
+  /*
+   * We set up the bar after all elements are done loading.
+   * In some cases, if the images in the page are larger than the intended
+   * size they'll have on the page, they'll be resized via CSS to accomodate
+   * the desired size. This mistake, however, breaks the computations as the
+   * scroll size is computed as soon as the elements finish loading.
+   * To account for this, a minimal delay was introduced before computing the
+   * values.
+   */
+  window.onload = function () {
+    setTimeout(progressBarSetup, 50);
+  };
+  /*
+   * We set up the bar according to the browser.
+   * If the browser supports the progress element we use that.
+   * Otherwise, we resize the bar thru CSS styling
+   */
+  function progressBarSetup() {
+    if ("max" in document.createElement("progress")) {
+      initializeProgressElement();
+      $(document).on("scroll", function() {
+        progressBar.attr({ value: getCurrentScrollPosition() });
+      });
+      $(window).on("resize", initializeProgressElement);
+    } else {
+      resizeProgressBar();
+      $(document).on("scroll", resizeProgressBar);
+      $(window).on("resize", resizeProgressBar);
+    }
+  }
+  /*
+   * The vertical scroll position is the same as the number of pixels that
+   * are hidden from view above the scrollable area. Thus, a value > 0 is
+   * how much the user has scrolled from the top
+   */
+  function getCurrentScrollPosition() {
+    return $(window).scrollTop();
+  }
+
+  function initializeProgressElement() {
+    let navbarHeight = $("#navbar").outerHeight(true);
+    $("body").css({ "padding-top": navbarHeight });
+    $("progress-container").css({ "padding-top": navbarHeight });
+    progressBar.css({ top: navbarHeight });
+    progressBar.attr({
+      max: getDistanceToScroll(),
+      value: getCurrentScrollPosition(),
+    });
+  }
+  /*
+   * The offset between the html document height and the browser viewport
+   * height will be greater than zero if vertical scroll is possible.
+   * This is the distance the user can scroll
+   */
+  function getDistanceToScroll() {
+    return $(document).height() - $(window).height();
+  }
+
+  function resizeProgressBar() {
+    progressBar.css({ width: getWidthPercentage() + "%" });
+  }
+  // The scroll ratio equals the percentage to resize the bar
+  function getWidthPercentage() {
+    return (getCurrentScrollPosition() / getDistanceToScroll()) * 100;
+  }
+</script>
+
+  </body>
+</html>
