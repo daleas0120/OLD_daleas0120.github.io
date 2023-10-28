@@ -13,7 +13,9 @@ Ashley S. Dale
 
 ## Introduction
 
-Model pruning is an effective way to reduce model size and complexity.  It is a heuristic approach that removes nodes from a network by considering a weight threshold in the context of model performance.  In the notebook below, a simple multi-layer perceptron is used to classify two of the three classes from the *Iris* dataset.  Results show that for the data and network structure given, it is possible to eliminate
+<a href=\"https://colab.research.google.com/github/daleas0120/Example_notebooks/blob/main/Network_Pruning_Example.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+
+Model pruning is an effective way to reduce model size and complexity.  It is a heuristic approach that removes nodes from a network by considering a weight threshold in the context of model performance.  In the notebook below, a simple multi-layer perceptron is used to classify two of the three classes from the *Iris* dataset.  Results show that for the data and network structure given, it is possible to eliminate many of the connections.
 
 
 ```python
