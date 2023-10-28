@@ -80,9 +80,6 @@ gd.plot_persistence_barcode(uniform_barcode, axes=ax[1])
 plt.show()
 ```
 
-    WARNING:matplotlib:usetex mode requires TeX.
-
-
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/proj10_output_7_1.png" title="" class="img-fluid rounded z-depth-1" %}
