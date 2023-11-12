@@ -284,6 +284,7 @@ plt.show()
 
 
 ### Convert one-hot labels to integers
+
 One-hot|Description|Integer
 ---|---|---
 [0 0 0 0] | No Fault | 0
