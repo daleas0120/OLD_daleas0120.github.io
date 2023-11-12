@@ -413,14 +413,48 @@
 </div>
 
 <h3 id="convert-one-hot-labels-to-integers">Convert one-hot labels to integers</h3>
-<p>One-hot|Description|Integer
-—|—|—
-[0 0 0 0] | No Fault | 0
-[1 0 0 1] | LG fault (Between Phase A and Ground) | 9
-[0 0 1 1] | LL fault (Between Phase A and Phase B) | 3
-[1 0 1 1] | LLG Fault (Between Phases A,B and Ground) | 11
-[0 1 1 1] | LLL Fault (Between all three phases) | 7
-[1 1 1 1] | LLLG fault (Three phase symmetrical fault) | 15</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>One-hot</th>
+      <th>Description</th>
+      <th>Integer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[0 0 0 0]</td>
+      <td>No Fault</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>[1 0 0 1]</td>
+      <td>LG fault (Between Phase A and Ground)</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>[0 0 1 1]</td>
+      <td>LL fault (Between Phase A and Phase B)</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>[1 0 1 1]</td>
+      <td>LLG Fault (Between Phases A,B and Ground)</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>[0 1 1 1]</td>
+      <td>LLL Fault (Between all three phases)</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>[1 1 1 1]</td>
+      <td>LLLG fault (Three phase symmetrical fault)</td>
+      <td>15</td>
+    </tr>
+  </tbody>
+</table>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_arr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">train</span><span class="p">)</span>
 <span class="n">num_rows</span> <span class="o">=</span> <span class="n">train_arr</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
