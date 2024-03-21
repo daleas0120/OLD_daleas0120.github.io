@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Improving β-phase PVDF
-description: Rehabilitation of Langmuir-Blodgett Deposition system
+description: Necessity is the mother of my MS thesis
 img: assets/img/beta_phase_approaches.png
 importance: 3
 category: physics

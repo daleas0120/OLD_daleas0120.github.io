@@ -9,7 +9,7 @@ category: physics
 
 By far the most extensive instrumentation project I undertook, and documented in my MS Physics thesis.
 
-As a reminder, Langmuir Blodgett deposition was pioneered by the work of <a href="https://en.wikipedia.org/wiki/Agnes_Pockels">Agnes Pockels</a> and <a href="https://en.wikipedia.org/wiki/Katharine_Burr_Blodgett">Katherine Blodgett</a>.  The basic idea is to deposit a self-orienting monolayer on top of a polar subphase, then leverage the surface dynamics to transfer the monolayer to a substrate
+Langmuir Blodgett deposition was pioneered by the work of <a href="https://en.wikipedia.org/wiki/Agnes_Pockels">Agnes Pockels</a> and <a href="https://en.wikipedia.org/wiki/Katharine_Burr_Blodgett">Katherine Blodgett</a>.  The basic idea is to deposit a self-orienting monolayer on top of a polar subphase, then leverage the surface dynamics to transfer the monolayer to a substrate
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -27,13 +27,13 @@ I inherited a KSV Langmuir Blodgett chassis and some microelectronics c. 1991, k
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/proj12_trough_fab.jpg" title="Milling the delrin part one" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/proj12_trough_fab.JPG" title="Milling the delrin part one" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
     {% include figure.html path="assets/img/proj12_trough_fab_shellCutter.jpg" title="Milling the delrin part two" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-    {% include figure.html path="assets/img/proj12_me_missing.jpg" title="Action shot" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="assets/img/proj12_me_milling.jpg" title="Action shot" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -44,7 +44,7 @@ After the trough was fabricated, I had to reverse engineer some control software
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/proj12_systemArchi.jpg" title="open source software architecture" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/proj12_systemArchi.png" title="open source software architecture" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -64,7 +64,6 @@ I added a giant plastic box to keep debris from falling onto the trough surface,
     </div>
 </div>s
 
-I eventually added a surface balance and put the trough chassis in a tray of sand to further damp vibrations which might disturb the thin film formation.  The whole thing works pretty good.
+I eventually added a surface balance and put the trough chassis in a tray of sand to further damp vibrations which might disturb the thin film formation.  The whole thing works pretty good.  If you want the labview code, shoot me an email.  
 
 Thanks to A. Mosey for training me on the mill, and D. Emerson for his reverse engineering software expertise.
-
