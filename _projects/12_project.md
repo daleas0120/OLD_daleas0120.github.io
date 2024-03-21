@@ -44,7 +44,7 @@ After the trough was fabricated, I had to reverse engineer some control software
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/proj12_systemArchi.png" title="open source software architecture" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/proj12_systemArchi_2.png" title="open source software architecture" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
