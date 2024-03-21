@@ -64,5 +64,5 @@ I added a giant plastic box to keep debris from falling onto the trough surface,
     </div>
 </div>
 
-I eventually added a surface balance and put the whole thing in a tray of sand to further damp vibrations which might disturb my thin film.  The whole thing works pretty good.
+I eventually added a surface balance and put the trough chassis in a tray of sand to further damp vibrations which might disturb the thin film formation.  The whole thing works pretty good.
 
