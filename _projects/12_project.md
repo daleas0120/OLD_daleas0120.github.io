@@ -9,7 +9,7 @@ category: physics
 
 By far the most extensive instrumentation project I undertook, and documented in my MS Physics thesis.
 
-Langmuir Blodgett deposition was pioneered by the work of <a href="https://en.wikipedia.org/wiki/Agnes_Pockels">Agnes Pockels</a> and <a href="https://en.wikipedia.org/wiki/Katharine_Burr_Blodgett">Katherine Blodgett</a>.  The basic idea is to deposit a self-orienting monolayer on top of a polar subphase, then leverage the surface dynamics to transfer the monolayer to a substrate
+Langmuir Blodgett deposition was pioneered by the work of <a href="https://en.wikipedia.org/wiki/Agnes_Pockels">Agnes Pockels</a> and <a href="https://en.wikipedia.org/wiki/Katharine_Burr_Blodgett">Katharine Blodgett</a>.  The basic idea is to deposit a self-orienting monolayer on top of a polar subphase, then leverage the surface dynamics to transfer the monolayer to a substrate
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -56,7 +56,7 @@ This included assembling and calibrating a desktop dipper from an arduino, stepp
     </div>
 </div>
 
-I added a giant plastic box to keep debris from falling onto the trough surface, and jammed the whole thing inside a fume hood.
+I then built a giant plastic box to keep debris from falling onto the trough surface, and jammed the whole thing inside a fume hood.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
