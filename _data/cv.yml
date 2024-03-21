@@ -9,12 +9,18 @@
 - title: Education
   type: time_table
   contents:
+    - title: PhD, Electrical Engineering
+      institution: Purdue School of Engineering and Technology, Indianapolis, Indiana
+      year: 2024,
+      description:
+      - Computer vision, machine learning, trustworthy artificial intelligence
+      - Title: ANALYSIS OF LATENT SPACE REPRESENTATIONS FOR OBJECT DETECTION
     - title: PhD, Physics
       institution: Purdue University School of Science, Indianapolis, Indiana
       year: 2024
       description:
         - Condensed Matter, Spintronics, Computational Physics
-        - Thesis TBD
+        - Title: NOVEL MATERIALS FOR SPINTRONIC DEVICES
     - title: MagLab Summer School
       institution: National High Magnetic Field Laboratory
       year: 2023
