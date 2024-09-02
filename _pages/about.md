@@ -21,9 +21,9 @@ social: true  # includes social icons at the bottom of the page
 
 Hello World!
 
-I am a condensed matter physicist studying spin-crossover materials.  I also have a background in machine learning, explainable and trustworthy AI, and computer vision.  
+I am a condensed matter physicist researching magnetic materials.  I also research explainable and trustworthy AI, and computer vision.  
 
-My work has applications in <a href="https://patents.google.com/patent/US20220238537A1/en">spintronics</a>, black-box model exploration, Monte-Carlo simulation, latent-model analysis, and <a href="https://github.com/GDS-Education-Community-of-Practice/DSECOP/tree/main/Connecting_MonteCarlo_to_ModernAI">physics education</a>.
+My work has applications in <a href="https://patents.google.com/patent/US20220238537A1/en">spintronics</a>, <a href="https://doi.org/10.36227/techrxiv.171392756.66802879/v1">black-box model exploration</a>, Monte-Carlo simulation, <a href="https://doi.org/10.1117/12.3015657">data domain gap analysis</a>, and <a href="https://github.com/GDS-Education-Community-of-Practice/DSECOP/tree/main/Connecting_MonteCarlo_to_ModernAI">physics education</a>.
 
 <!-- Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
 

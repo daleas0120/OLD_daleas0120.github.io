@@ -70,6 +70,20 @@
         - Explored writing custom libraries for PIC-33 microcontrollers
         - Explored data-pipeline methods for machine learning applications
     
+    - title: Physics Lab Instructor
+      institution: Department of Physics, Indiana University Indianapolis
+      year: 2018 - 2024
+      description:
+        - Instruct undergraduate physics laboratory for introductory mechanics
+        - Responsible for grading lab reports, providing instructor feedback
+
+    - title: Lab Manager
+      institution: Machine Intelligence and Computer Vision in 3D (MICV3D) Lab, Department of Electrical
+      and Computer Engineering, Purdue University in Indianapolis
+      year: 2018 - 2024
+      description: 
+        - Operate and maintain Ubuntu Lambda GPU server for 20+ researchers
+        - Provide ongoing project support, code review, debugging, resource management, documentation
     # - title: Professor of Theoretical Physics
     #   institution: Institute for Advanced Study, Princeton University
     #   year: 1933 - 1955
@@ -149,6 +163,15 @@
       items:
         - Inter-Collegiate Chinese Speech Competition, Indiana University Purdue University Indianapolis Confucius Institute
 
+- title: Community Involvement
+  type: nested_list
+  contents:
+    - title: Peer Review
+      items: 
+        - NeurIPS
+        - ICML
+        - Physica Scripta
+        - The Journal of Physics Condensed Matter
 
 - title: Academic Interests
   type: nested_list
