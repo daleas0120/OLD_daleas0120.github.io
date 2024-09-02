@@ -7,6 +7,7 @@ importance: 1
 category: machine learning
 ---
 
+One of the analysis techniques I used to search for explainable outliers was dimensionality reduction using algorithms such as UMAP [1].
 
 
 <div class="row">
