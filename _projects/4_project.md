@@ -20,3 +20,5 @@ One of the analysis techniques I used to search for explainable outliers was dim
 </div>
 
 More coming soon!
+
+[1]<a href="">UMAP</a>
